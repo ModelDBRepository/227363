@@ -1,0 +1,71 @@
+This directory allows you to construct a single-compartment granule
+cell (grc) and to stimulate it either by synaptic activation or by
+current injection.  The main or executable script is  TEST.g
+
+
+// The voltage-gated channels
+
+The grc has 6 voltage-gated channels. Five of them are adapted from
+Gabbiani et al.  (1994) (NaF, Kdr, CaL, KCa and H). The transient
+potassium current (KA) is from Bardoni and Belluzzi (1993). The
+formulas for the channels' conductances are implemented in the
+function make_granule_chans in Gran_chan.g (NaF, Kdr, CaL and H). The
+KA is described in Gran_chan_KA.g, the KCa in Gran_chan_KCa.g. The
+latter two channels are however also constructed (through a nested
+function call) by make_Granule_chans.
+
+A much faster way for constructing the channels in your element
+library is to read them from precomputed tables saved in your
+Granule_cell/ directory. This is the way Gran_comp_tab.g fills in the
+channel tables. Hence the function make_Granule_chans exists in two
+versions : it either reads the tables from disk (in Gran_chan_tab.g)
+or it computes the tables de novo (in Gran_chan.g). Depending on which
+script file you include in TEST.g (or from the genesis command line)
+the one or the other will be executed.  Tables can be saved on disk by
+first creating them and then applying 'call element-name TABSAVE
+file-name' (see example in TEST.g).
+
+ASCII files (extension .test) are generated that allow you to plot
+the voltage dependences of the steady-state values and time-constants
+of the activation and inactivation variables. 
+
+
+// The ligand-gated channels
+
+The AMPA, NMDA and GABAA channels are described in Gran_synchan.g and
+are added to the element library by a function make_granule_chans.
+
+
+// The compartment
+
+A virtual soma in created in your element library by the function
+make_Granule_comps in Gran_comp.g.  The passive compartment is
+provided with the earlier created voltage- and ligand-gated channels
+through a copy statement (followed by the addition of messages). The
+parameter values used are those specified in Gran_const.g.  Finally, a
+calcium pool is created so that you end up with a complete prototype
+grc in your library.
+
+
+// The cell descriptor file
+
+Gran1M0.p contains the dimensions and passive-cable parameters of a
+'real' granule cell.  The readcell statement (in TEST.g) makes a copy
+of the prototype granule cell you already created in your element
+library, but it recomputes all dimension- and cable-dependent
+parameter values, using now the values specified in the cell
+descriptor file (instead of the values from Gran_const.g).
+
+
+// The main program
+
+TEST.g goes through the steps described above before initializing the
+hines solver.  You can select either a synaptic stimulation or a
+current injection protocol.  Output is written to an ASCII file in the
+results/ subdirectory. The output filename is to be specified by an
+assignment to the variable 'filename'.
+
+CAUTION : When TEST.g is run with synaptic activation, the right
+values of the synaptic peak conductances (gmax) should be set, either
+in Gran_synchan.g or in Gran_const.g. (These values are for the
+network simulations specified in ../Gran_layer_1D/Gran_layer_const.g.)

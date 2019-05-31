@@ -1,0 +1,40 @@
+This package contains the Genesis-code for the simulations in
+
+Maex R, De Schutter E (1998)
+Synchronization of Golgi and granule cell firing in a detailed 
+network model of the cerebellar granule cell layer.
+J. Neurophysiol. 80, 2521-2537.
+
+For more info, please consult R. Maex at
+reinoud.maex@uantwerpen.be.
+
+Each subdirectory contains an executable Genesis script. 
+The following model implementations are available.
+
+Granule_cell : contains the scripts describing a single-compartmental
+granule cell.  Allows for the computation of responses to current
+injection and to synaptic stimulation, by running the executable TEST.g.
+
+Golgi_cell : same as Granule_cell, but for a single-compartmental
+Golgi cell.
+
+Gran_layer_1D : describes a one-dimensional (parallel fiber axis)
+segment of the cerebellar granular layer, containing mossy fibers,
+granule and Golgi cells.  Mossy fibers are random spike generators.
+Granule and Golgi cells are the single-compartmental neurons
+implemented in the Granule_cell and Golgi_cell directories described
+above. The densities of neurons and synapses, the synaptic
+strengths/delays and their randomization intervals, and the patterns
+of mossy fiber activity are variable parameters.
+
+
+The code has been run on Sun Solaris, and Mac X Linux.
+The channel tables are included. In case of incompatibility,
+they can be recreated by uncommenting the TABSAVE comments in
+Granule_cell/TEST.g and Golgi_cell/TEST.g.
+
+
+16Mar2005 fixed bug in h channel (missing brackets around argument of exp}
+(see Granule_cell/Gran_chan.g and Golgi_cell/Golg_chan.g)
+
+

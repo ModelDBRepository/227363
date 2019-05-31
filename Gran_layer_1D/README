@@ -1,0 +1,106 @@
+This directory contains the scripts used for building a
+one-dimensional array of mossy fibers (MFs), granule cells (grcs) and
+Golgi cells (Gocs). The Goc and grc responses are computed with random
+MF input. The single-neuron models of the grcs and Gocs are
+implemented in the ../Granule_cell and ../Golgi_cell directories.
+
+The main script is Gran_layer_hines.g and can be run by the command
+>genesis Gran_layer_hines.
+
+
+Output can be produced on disk, through asc_file and spikehistory
+objects, or on the screen, through xgraph and xview objects. The
+former, especially the output produced with spikehistory objects, is
+intended to be used when large networks are simulated, while the
+latter, especially the graph output, can be used for the visual
+inspection and fine-tuning of small networks (e.g. a network of 6 MFs,
+2 Gocs and 15 grcs).  You can select the desidered output stream by
+uncommenting the corresponding include statement in the main
+script.
+
+All parameters of the network (numbers of neurons, connection
+probabilities, synaptic strengths and delays, randomization intervals,
+MF input) are described in Gran_layer_const.g. Only the name of the
+file written by a spikehistory element must be specified in
+Gran_layer_spike_history_hines.g (Gran_layer_spike_history_exp.g).
+
+Here is an overview of the scripts :
+
+// network construction
+
+Granule_cell.g : function make_granule_cell_array makes a prototype
+grc in the library, creates with readcell a more realistic grc and
+creates with createmap a 1D array of grcs.
+
+Golgi_cell.g : function make_Golgi_cell_array : same but for Gocs.
+
+Mossy_fiber.g : function make_mossy_fiber_array implements MFs as
+randomspike elements giving input to spikegen elements; creates a 1D
+array of MFs.
+
+Gran_layer_setup.g : connects the Gocs, grcs and MFs through synapses,
+as specified in Gran_layer_const.g; positions each grc at the center
+of its afferent MFs.
+
+Gran_layer_randomize_hines.g, Gran_layer_randomize_exp.g : randomizes
+the reversal potentials of the neurons' leak currents, randomizes the
+gmax of the synchan elements and the weights of the afferents.
+
+// network output
+
+Gran_layer_spike_history_hines.g :
+creates spikehistory elements for the arrays of MFs, grcs and Gocs.
+
+Gran_layer_ascii_hines.g : creates asc_file
+elements for the arrays of MFs, grcs and Gocs.
+
+Gran_layer_view_hines.g : creates xview
+elements for the arrays of MFs, grcs and Gocs (not used ordinarily).
+
+Gran_layer_graph_hines.g : creates xgraph
+elements for the arrays of MFs, grcs and Gocs.
+
+
+// main script
+
+Gran_layer_hines.g
+
+
+(Some scripts refer already to Stellate cells, the Stellate_cell.g
+script however is not yet included.)
+
+
+
+The spike trains produced as files with extension .history 
+can be visualized as rasterplots with the xplot-program 
+written by M. Wilson, which is now part of the Genesis2.2.1 release. 
+
+You can download genesis2.2.1
+from http://www.genesis-sim.org/GENESIS or via http://www.neuroinf.org.
+The xplot program can then be found in directory 
+src/Release2-2.1-Linux/contrib/xplot
+and can be compiled by just typing 'make'. 
+
+The command 
+xplot <history file name>   
+gives a line diagram; change it to a raster diagram by typing
+/scatter
+in the window.
+
+Probably you wish to have time on the horizontal axis, which can be done
+with a shell script that changes the order of the columns. E.g.
+make a file rasterplot containing
+
+cut -c12- $1 > temp1
+cut -c-6 $1 > temp2
+paste temp1 temp2 | xplot  &
+sleep 5
+rm temp1
+rm temp2
+
+The command 
+rasterplot <history file name> 
+then plots time on the x-axis (you still need to type /scatter).
+
+For more questions, e-mail us at reinoud.maex@uantwerpen.be.
+

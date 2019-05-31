@@ -1,0 +1,45 @@
+
+logging started at Mon Aug 18 12:08:28 1997
+
+genesis #0 > quit
+
+logging started at Mon Aug 18 12:10:04 1997
+
+genesis #0 > xplot results/G_soma_20pA &
+genesis #1 > diff results/G_soma_20pA ~/genesis/Golgi_cell_copy/results/G_soma_20pA | more
+genesis #2 > quit
+
+logging started at Mon Aug 18 12:14:53 1997
+
+genesis #0 > xplot results/G_soma_20pA &
+genesis #1 > exit
+
+logging started at Mon Aug 18 13:01:13 1997
+
+genesis #0 > xplot results/G_soma_20pA_grcCaHVA &
+genesis #1 > exit
+
+logging started at Mon Aug 18 13:09:51 1997
+
+genesis #0 > xplot results/G_soma_20pA_CaHVAcorr &
+genesis #1 > exit
+
+logging started at Thu Aug 21 11:33:40 1997
+
+genesis #0 > showfield soma/InNa -a | more
+genesis #1 > showfield soma/KDr  -a | more
+genesis #2 > showfield soma/KA  -a | more
+genesis #3 > showfield soma/CaHVA  -a | more
+genesis #4 > showfield soma/Moczyd_KC  -a | more
+genesis #5 > showfield soma/H -a | more
+genesis #6 > exit
+
+logging started at Thu Aug 21 11:43:00 1997
+
+genesis #0 > showfield soma/H -a | more
+genesis #1 > exit
+
+logging started at Thu Aug 21 11:46:39 1997
+
+genesis #0 > showfield soma/H -a | more
+genesis #1 > exit
